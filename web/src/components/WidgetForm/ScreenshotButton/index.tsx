@@ -8,7 +8,7 @@ import { ScreenshotButtonProps } from './types'
 
 export function ScreenshotButton(props: ScreenshotButtonProps) {
   const { screenshot, setScreenshot } = props
-  const [isTakingScreenshot, setIsTakingScreenshot] = useState(true)
+  const [isTakingScreenshot, setIsTakingScreenshot] = useState(false)
 
   const onTakeScreenshot = useCallback(async () => {
     setIsTakingScreenshot(true)
