@@ -1,9 +1,9 @@
-import { Widget } from '../../components/Widget'
+import { WidgetButton } from '../../components/WidgetButton'
 
 export function Home() {
   return (
     <div>
-      <Widget />
+      <WidgetButton />
     </div>
   )
 }
