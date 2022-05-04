@@ -41,7 +41,7 @@ export function FeedbackContentStep(props: FeedbackContentStepProps) {
       </header>
       <form className="my-4 w-full" onSubmit={onSubmitFeedback}>
         <textarea
-          className="min-w-[304px] w-full min-h-[112px] text-sm placeholder-zinc-400 text-zinc-100 border-zinc-600 bg-transparent rounded-md focus:border-brand-500 focus:ring-brand-500 focus:ring-1 focus:outline-none resize-none scrollbar-thumb-zinc-700 scrollbar-track-transparent scrollbar-thin"
+          className="min-w-[304px] w-full min-h-[112px] text-sm placeholder-zinc-400 text-zinc-100 border-zinc-600 bg-transparent rounded-md focus:border-brand-500 focus:ring-brand-500 focus:ring-1 focus:outline-none resize-none scrollbar-thumb-zinc-700 scrollbar-track-transparent scrollbar-thin disabled:opacity-50 disabled:hover:bg-brand-500"
           placeholder="Conte com detalhes o que está acontecendo..."
           onChange={({ target }) => setComment(target.value)}
         />
