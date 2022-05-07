@@ -1,9 +1,9 @@
 import { FormEvent, useCallback, useState } from 'react'
 
-import { Camera } from 'phosphor-react'
-
+import { api } from '../../../services/api'
 import { BackButton } from '../../BackButton'
 import { CloseButton } from '../../CloseButton'
+import { Loading } from '../../Loading'
 import { feedbackTypes } from '../FeedbackTypeStep/feedbackTypes'
 import { ScreenshotButton } from '../ScreenshotButton'
 import { FeedbackContentStepProps } from './types'
@@ -14,19 +14,21 @@ export function FeedbackContentStep(props: FeedbackContentStepProps) {
 
   const [screenshot, setScreenshot] = useState<string | null>(null)
   const [comment, setComment] = useState<string | null>(null)
+  const [isSendingFeedback, setIsSendingFeedback] = useState(false)
 
   const onSubmitFeedback = useCallback(
-    (e: FormEvent) => {
+    async (e: FormEvent) => {
       e.preventDefault()
       if (!comment?.trim()) {
         return
       }
-
-      console.log({ screenshot, comment })
+      setIsSendingFeedback(true)
+      await api.post('/feedbacks', { type: feedbackType, screenshot, comment })
 
       onFeedbackSent()
+      setIsSendingFeedback(false)
     },
-    [comment, onFeedbackSent, screenshot],
+    [comment, feedbackType, onFeedbackSent, screenshot],
   )
 
   return (
@@ -49,10 +51,10 @@ export function FeedbackContentStep(props: FeedbackContentStepProps) {
           <ScreenshotButton screenshot={screenshot} setScreenshot={setScreenshot} />
           <button
             type="submit"
-            disabled={!comment?.trim()}
+            disabled={!comment?.trim() || isSendingFeedback}
             className="p-2 bg-brand-500 rounded-md border-transparent flex-1 flex justify-center items-center text-sm hover:bg-brand-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-zinc-900 focus:ring-brand-500 transition-colors"
           >
-            Enviar feedback
+            {isSendingFeedback ? <Loading /> : 'Enviar feedback'}
           </button>
         </footer>
       </form>
